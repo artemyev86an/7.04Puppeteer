@@ -5,12 +5,13 @@ beforeEach(async () => {
   page = await browser.newPage();
 });
 
+afterEach(() => {
+  page.close();
+});
+
 describe("Github page tests", () => {
   beforeEach(async () => {
     await page.goto("https://github.com/team");
-  });
-  afterEach(() => {
-    page.close();
   });
 
   test("The h1 header content'", async () => {
@@ -38,9 +39,6 @@ describe("Github page tests", () => {
 describe.only("New Three test", () => {
   beforeEach(async () => {
     await page.goto("https://github.com/security");
-  });
-  afterEach(() => {
-    page.close();
   });
 
   test("The first link attribute in security", async () => {

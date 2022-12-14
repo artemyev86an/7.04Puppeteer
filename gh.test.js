@@ -6,17 +6,9 @@ beforeEach(async () => {
   page = await browser.newPage();
 });
 
-//afterEach(() => {
-//  выполняется после
-//page.close();
-//});
-
 describe("Github page tests", () => {
   beforeEach(async () => {
     await page.goto("https://github.com/team");
-  });
-  afterEach(() => {
-    page.close();
   });
 
   test("The h1 header content'", async () => {
@@ -45,9 +37,6 @@ describe("New Three test", () => {
   beforeEach(async () => {
     await page.goto("https://github.com/security");
   });
-  afterEach(() => {
-    page.close();
-  });
 
   test("The first link attribute in security", async () => {
     const actuals = await page.$eval("a", (link) => link.getAttribute("href"));
@@ -62,12 +51,4 @@ describe("New Three test", () => {
     const actuals = await page.$eval(btnSelectors, (link) => link.textContent);
     expect(actuals).toContain("Explore security at GitHub Universe");
   }, 45000);
-
-  //test("The h4 header content in security", async () => {
-  //const firstLinks = await page.$("div div p");
-  //await firstLinks.click();
-  //await page.waitForSelector("a");
-  //const title3 = await page.title();
-  //expect(title3).toEqual("GitHub Security · GitHub");
-  //}, 45000);
 });

@@ -2,13 +2,15 @@ const puppeteer = require("puppeteer");
 let page;
 
 beforeEach(async () => {
-  // выполняется перед
   page = await browser.newPage();
 });
 
 describe("Github page tests", () => {
   beforeEach(async () => {
     await page.goto("https://github.com/team");
+  });
+  afterEach(() => {
+    page.close();
   });
 
   test("The h1 header content'", async () => {
@@ -33,9 +35,12 @@ describe("Github page tests", () => {
     expect(actual).toContain("Get started with Team");
   }, 45000);
 });
-describe("New Three test", () => {
+describe.only("New Three test", () => {
   beforeEach(async () => {
     await page.goto("https://github.com/security");
+  });
+  afterEach(() => {
+    page.close();
   });
 
   test("The first link attribute in security", async () => {
@@ -49,6 +54,11 @@ describe("New Three test", () => {
       visible: true,
     });
     const actuals = await page.$eval(btnSelectors, (link) => link.textContent);
-    expect(actuals).toContain("Explore security at GitHub Universe");
+    expect(actuals).toContain("Explore GitHub Advanced Security");
+  }, 45000);
+
+  test("The title", async () => {
+    const title3 = await page.title();
+    expect(title3).toEqual("GitHub Security · GitHub");
   }, 45000);
 });
